@@ -40,31 +40,33 @@ var storageService = angular.module('storageService', [])
 
 // Define a new module for our app
 var app = angular.module("To_Do", ['storageService']);
-app.controller("To_Do_List", function($scope, storage){
-
-	$scope.task = new TODO.task();
-
-	// assign data from the localStorage
-	$scope.todos = storage.getTodos();
-
-	$scope.addTodo = function(task) {
-		storage.addTodo(task);
-		$scope.task = new TODO.task();
-	};
-
-	$scope.removeTodo = function(task){
-		storage.removeTodo(task);
-	};
-	$scope.completeTodo = function(task){
-		storage.completeTodo(task)
-	}
-
-});
 
 app.directive("todoList", function(){
 	return{
-		restrict: 'AE',
+		restrict: 'E',
 		replace: 'true',
-		templateUrl: 'todolist.html'
+		templateUrl: 'todolist.html',
+		controller: function ($scope, $element, storage){
+			$scope.task = new TODO.task();
+
+			// assign data from the localStorage
+			$scope.todos = storage.getTodos();
+
+			$scope.addTodo = function(task) {
+				storage.addTodo(task);
+				// create new object
+				$scope.task = new TODO.task();
+			};
+
+			$scope.removeTodo = function(task){
+				// remove the task from the todolist
+				storage.removeTodo(task);
+			};
+			$scope.completeTodo = function(task){
+				// change the status of the task
+				storage.completeTodo(task)
+			};
+		}
 	};
+
 });
