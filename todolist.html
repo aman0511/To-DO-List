@@ -1,0 +1,10 @@
+<div class="col-md-6 col-md-offset-3">
+	<table class="table">
+		<tr ng-repeat="data in todos" style="margin: 3px;">
+			<td class="col-sm-4">{{data.text}}</td>
+			<td class="col-md-1"><button type="button" ng-hide="data.complete" class="btn btn-success" ng-click="completeTodo(data)">Complete</button></td>
+			<td class="col-md-1"><button type="button" class="btn btn-danger" ng-click="removeTodo(data)">Remove</button></td>
+		</tr>
+		
+	</table>
+</div>

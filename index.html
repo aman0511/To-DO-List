@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<title>Learn AngularJS</title>
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" />
+		<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link href="css/style.css" rel="stylesheet" />
+	</head>
+	<!-- The ng-app directive tells angular that the code below should be evaluated -->
+	<body ng-app="To_Do"  ng-controller="To_Do_List">
+	<div class="container">
+	<h1>To Do ........</h1>
+		<br>
+		<br>
+		<br>
+		<form class="form-inline" ng-submit="addTodo(todoText)">
+			<div class="form-group">
+				<input type="text" class="form-control" ng-model="todoText" placeholder="Jane Doe">
+			</div>
+			<button type="submit" class="btn btn-primary">Add</button>
+		</form>
+		<!-- listing of to do data -->
+		<br>
+		<br>
+		<br>
+			<todo-list>
+		<!-- end of listing to do data -->
+	</div>
+		<!-- end search box -->
+		<!-- Include AngularJS from Google's CDN -->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+		<script type="text/javascript" src="js/script.js"></script>
+	</body>
+</html>
