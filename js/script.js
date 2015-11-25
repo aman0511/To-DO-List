@@ -1,53 +1,65 @@
-//storage service
+// a todo application namespace
+var TODO = TODO || {};
 
+// a task model
+TODO.task = function (text) {
+	this.text = text;
+	this.createdAt = new Date();
+	this.completed = false;
+};
+
+// an angular storage service
 var storageService = angular.module('storageService', [])
 .service('storage', function(){
-	this.data = (localStorage.getItem('todos')!==null) ? JSON.parse(localStorage.getItem('todos')) : [];
-	this.get_data = function(){
-		return this.data
+	var todoList = (localStorage.getItem('todos')!==null) ? JSON.parse(localStorage.getItem('todos')) : [];
+
+	var getTodos = function(){
+		return todoList
 	}
-	this.add_data = function(todo_text){
-			var new_data = {
-				text: todo_text,
-				complete: false
-			}
-			this.data.push(new_data);
-			localStorage.setItem('todos', JSON.stringify(this.data));
+	var addTodo = function(task){
+			todoList.push(task);
+			localStorage.setItem('todos', JSON.stringify(todoList));
 	}
-	this.remove_data = function(todo_data){
-		this.data.splice($.inArray(todo_data, this.data), 1);
-		localStorage.setItem('todos', JSON.stringify(this.data));
+	var removeTodo = function(task){
+		todoList.splice($.inArray(task, todoList), 1);
+		localStorage.setItem('todos', JSON.stringify(todoList));
 	}
-	this.complete_todo = function(todo_data){
-		todo_data.complete = true;
+	var completeTodo = function(task){
+		task.completed = true;
 	}
-})
+
+	return {
+		"getTodos": getTodos,
+		"addTodo": addTodo,
+		"removeTodo": removeTodo,
+		"completeTodo": completeTodo
+	}
+
+});
 
 
 // Define a new module for our app
 var app = angular.module("To_Do", ['storageService']);
 app.controller("To_Do_List", function($scope, storage){
 
+	$scope.task = new TODO.task();
+
 	// assign data from the localStorage
-	$scope.todos = storage.get_data();
+	$scope.todos = storage.getTodos();
 
-	$scope.addTodo = function(todoText) {
-		storage.add_data(todoText);
-		$scope.todoText = ''
+	$scope.addTodo = function(task) {
+		storage.addTodo(task);
+		$scope.task = new TODO.task();
 	};
 
-	$scope.removeTodo = function(Todo){
-		storage.remove_data(Todo);
-
+	$scope.removeTodo = function(task){
+		storage.removeTodo(task);
 	};
-	$scope.completeTodo = function(Todo_item){
-		storage.complete_todo(Todo_item)
-   		
+	$scope.completeTodo = function(task){
+		storage.completeTodo(task)
 	}
 
-
-})
-
+});
 
 app.directive("todoList", function(){
 	return{
@@ -56,4 +68,3 @@ app.directive("todoList", function(){
 		templateUrl: 'todolist.html'
 	};
 });
-
