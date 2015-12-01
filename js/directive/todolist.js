@@ -34,6 +34,8 @@ app.directive("todoItem", function(){
 	return{
 		restrict: 'E',
 		replace: true,
+		scope:true,
+		transclude: true,
 		templateUrl: 'partial_template/todoitem.html'
 	};
 
