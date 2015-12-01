@@ -22,7 +22,14 @@ var storageService = angular.module('storageService', [])
 		localStorage.setItem(todoKey, JSON.stringify(todoList));
 	}
 
-	this.completeTodo = function(task){
-		task.completed = true;
+	this.completeTodo = function(taskName){
+		taskName = angular.copy(taskName);
+		var todoList = this.getTodos();
+		for(var i=0; i<todoList.length; i++){
+			if(JSON.stringify(todoList[i]) == JSON.stringify(taskName)){
+				todolist[i].completed = true;
+			}
+		}
+		localStorage.setItem(todoKey, JSON.stringify(todoList));
 	}	
 });

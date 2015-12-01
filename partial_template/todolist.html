@@ -1,12 +1,5 @@
 <div class="col-md-6 col-md-offset-3">
-	<table class="table">
-		<tbody>
-			<tr ng-repeat="task in todos">
-				<td class="col-sm-4">{{task.text}}</td>
-				<td class="col-md-1"><button type="button" ng-hide="task.completed" class="btn btn-success" ng-click="task.complete = true">Complete</button></td>
-				<td class="col-md-1"><button type="button" class="btn btn-danger" ng-click="removeTodo(task)">Remove</button></td>
-			</tr>
-		</tbody>
-	</table>
-	<todo-item></todo-item>
+	<div class="row" ng-repeat="todo in todos">
+		<todo-item todo="todo" remove="removeTodo(todo)" complete="completeTodo(todo)"></todo-item>
+	</div>
 </div>

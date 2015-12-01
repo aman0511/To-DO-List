@@ -23,7 +23,8 @@ app.directive("todoList", function(){
 			};
 			$scope.completeTodo = function(taskName){
 				// change the status of the task
-				storage.completeTodo(task)
+				storage.completeTodo(taskName);
+				$scope.todos = storage.getTodos();
 			};
 		}
 	};
@@ -33,9 +34,12 @@ app.directive("todoList", function(){
 app.directive("todoItem", function(){
 	return{
 		restrict: 'E',
-		replace: true,
-		scope:true,
-		transclude: true,
+		require: '^todoList',
+		scope: {
+      		'todo': '=',
+      		'remove': '&',
+      		'complete': '&'
+    		},
 		templateUrl: 'partial_template/todoitem.html'
 	};
 
